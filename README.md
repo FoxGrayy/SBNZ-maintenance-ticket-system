@@ -18,11 +18,42 @@ Na osnovu ulaza sistem generiše:
 -	preporučenu akciju (praćenje problema, planirana intervencija, hitna intervencija, eskalacija) 
 ## Način rada sistema
 Sistem se zasniva na pravilima tipa IF–THEN. Zaključivanje će se vršiti korišćenjem forward chaining pristupa, gde se iz poznatih činjenica izvode novi zaključci kroz više nivoa rezonovanja. 
+
 Prvi nivo - obrađuju se ulazni podaci
+
 Drugi nivo - procenjuje se stanje sistema
+
 Treći nivo - donosi se konačna odluka
+
 ## Primer pravila
+
 IF criticality = high AND downtime > 60 THEN risk = high
+
 IF risk = high AND system_running = no THEN priority = critical
+
 IF priority = critical THEN action = escalation
+
+## Primer rezonovanja
+
+Ulaz:
+criticality = high 
+downtime = 90 
+system_running = no 
+
+Korak 1:
+downtime > 60 -> LongDowntime 
+
+Korak 2:
+LongDowntime AND criticality = high ->risk = high
+
+Korak 3:
+risk = high AND system_running = no ->priority = critical 
+
+Korak 4:
+priority = critical -> action = escalation 
+
+Izlaz:
+priority = critical 
+action = escalation
+
 
